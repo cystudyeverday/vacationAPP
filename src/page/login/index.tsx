@@ -62,6 +62,7 @@ const Login = () => {
         if (success) {
             localStorage.setItem("user", JSON.stringify(data.data))
             AntMessage.success('success')
+
         }
         else {
             AntMessage.error(errorMessage)
