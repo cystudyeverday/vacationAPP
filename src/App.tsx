@@ -1,6 +1,6 @@
 import React from 'react';
-import { Counter } from './components/counter/Counter';
-import Login from './components/login';
+import { Counter } from './page/counter/Counter';
+import Login from './page/login';
 import './App.css';
 
 function App() {

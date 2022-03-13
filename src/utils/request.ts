@@ -10,7 +10,6 @@ interface RequestOption {
 export const requestWithToken = (request: RequestOption) => {
     const headers = authHeader()
     if (headers) {
-
         switch (request.method) {
             case 'GET':
                 return axios.get(`${API_URL}${request.url}`, {

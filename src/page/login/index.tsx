@@ -6,9 +6,6 @@ import login from '../../api/login'
 import './index.css'
 
 const Login = () => {
-
-    const [userName, setUserName] = useState('')
-    const [password, setPassword] = useState('')
     const formRef = useRef<any>()
     return (
         <div className='login-page'>
@@ -18,6 +15,7 @@ const Login = () => {
                     className="login-form"
                     initialValues={{ remember: true }}
                     ref={formRef}
+                    onFinish={onFinish}
 
                 >
                     <Form.Item
@@ -47,7 +45,7 @@ const Login = () => {
                     </Form.Item>
 
                     <Form.Item>
-                        <Button type="primary" htmlType="submit" className="login-form-button" onClick={onLogin}>
+                        <Button type="primary" htmlType="submit" className="login-form-button">
                             账号密码登录
                         </Button>
                         <p style={{ marginTop: '20px' }}>
@@ -59,18 +57,10 @@ const Login = () => {
         </div >
     )
 
-    function onUserNameChange(evt: any) {
-        setUserName(evt.currentTarget.val)
-
-    }
-    function onPasswordChange(evt: any) {
-        setPassword(evt.currentTarget.val)
-    }
-
-
-    async function onLogin() {
-        const { success, errorMessage } = await login.login(formRef.current?.getFieldValue('username'), formRef.current?.getFieldValue('password'))
+    async function onFinish() {
+        const { success, errorMessage, data } = await login.login(formRef.current?.getFieldValue('username'), formRef.current?.getFieldValue('password'))
         if (success) {
+            localStorage.setItem("user", JSON.stringify(data.data))
             AntMessage.success('success')
         }
         else {

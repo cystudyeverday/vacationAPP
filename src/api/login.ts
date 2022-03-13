@@ -5,18 +5,7 @@ const API_URL = process.env.REACT_APP_BACKEND
 const register = () => {
 
 }
-const login = (username: string, password: string) => {
-    // console.log(API_URL)
-    // return axios.post(`${API_URL}/user/passwordLogin`, {
-    //     username,
-    //     password
-    // }).then((response: any) => {
-    //     console.log(response)
-    //     if (response.status === 200) {
-    //         localStorage.setItem("user", JSON.stringify(response.data))
-    //     }
-    //     return response.data
-    // })
+const login = async (username: string, password: string) => {
     const requestOption = {
         method: "POST",
         url: "/user/passwordLogin",
@@ -24,10 +13,8 @@ const login = (username: string, password: string) => {
             username,
             password
         }
-
     }
     return request(requestOption)
-
 }
 
 const logout = () => {
