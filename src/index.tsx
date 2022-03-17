@@ -15,14 +15,15 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       {/* <App /> */}
-      <BrowserRouter>
-        <Routes>
+      {/* <BrowserRouter> */}
+      {/* <Routes>
           <Route index element={<Login />} />
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter> */}
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

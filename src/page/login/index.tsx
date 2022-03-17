@@ -2,13 +2,17 @@ import React, { useState, useRef } from 'react'
 import { Form, Input, Button, Checkbox, message as AntMessage } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import login from '../../api/login'
-
 import './index.css'
+import useHistory from '../../hooks/use-history'
 
-const Login = () => {
-    const formRef = useRef<any>()
+
+const Login = (props: any) => {
+    const formRef = useRef<any>();
+    const { gotoPage } = useHistory();
+
     return (
-        <div className='login-page'>
+
+        < div className='login-page' >
             <div className="inner-div">
                 <Form
                     name="loginForm"
@@ -59,10 +63,11 @@ const Login = () => {
 
     async function onFinish() {
         const { success, errorMessage, data } = await login.login(formRef.current?.getFieldValue('username'), formRef.current?.getFieldValue('password'))
+
         if (success) {
             localStorage.setItem("user", JSON.stringify(data.data))
             AntMessage.success('success')
-
+            gotoPage('/home')
         }
         else {
             AntMessage.error(errorMessage)
