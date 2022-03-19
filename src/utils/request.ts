@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { authHeader } from "../api/helps";
+const queryString = require('query-string');
 const API_URL = process.env.REACT_APP_BACKEND
 
 interface RequestOption {
@@ -51,6 +52,26 @@ export const request = (request: RequestOption) => {
             return axios.post(`${API_URL}${request.url}`, {
                 ...request.payload
             }).then((response: any) => {
+                if (response.status === 200) {
+                    return response.data
+                }
+            })
+    }
+
+}
+
+export const requestWithFormData = (request: RequestOption) => {
+    const query = queryString.stringify(request.payload)
+    switch (request.method) {
+        case 'GET':
+            return axios.get(`${API_URL}${request.url}`, query).then((response: any) => {
+                if (response.status === 200) {
+                    return response.data
+                }
+            })
+
+        case 'POST':
+            return axios.post(`${API_URL}${request.url}`, query).then((response: any) => {
                 if (response.status === 200) {
                     return response.data
                 }

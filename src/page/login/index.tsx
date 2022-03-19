@@ -6,7 +6,7 @@ import './index.css'
 import useHistory from '../../hooks/use-history'
 
 
-const Login = (props: any) => {
+const Login = () => {
     const formRef = useRef<any>();
     const { gotoPage } = useHistory();
 
@@ -61,11 +61,10 @@ const Login = (props: any) => {
         </div >
     )
 
-    async function onFinish() {
-        const { success, errorMessage, data } = await login.login(formRef.current?.getFieldValue('username'), formRef.current?.getFieldValue('password'))
-
+    async function onFinish(values: any) {
+        const { success, errorMessage, data } = await login.login(values)
         if (success) {
-            localStorage.setItem("user", JSON.stringify(data.data))
+            localStorage.setItem("user", JSON.stringify(data))
             AntMessage.success('success')
             gotoPage('/home')
         }
