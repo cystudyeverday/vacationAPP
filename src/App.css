@@ -1,8 +1,7 @@
 @import '~antd/dist/antd.css';
 .App {
   text-align: center;
-  height:100vh
-  
+  height:100vh;
 }
 
 .App-logo {
@@ -39,4 +38,7 @@
   100% {
     transform: translateY(0px);
   }
+}
+.body{
+ 
 }

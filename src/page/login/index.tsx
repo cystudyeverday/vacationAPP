@@ -53,7 +53,7 @@ const Login = () => {
                             账号密码登录
                         </Button>
                         <p style={{ marginTop: '20px' }}>
-                            <a href="">用手机或邮箱注册后直接登录</a>
+                            <a onClick={() => { gotoPage('/register') }}>用邮箱注册后直接登录</a>
                         </p>
                     </Form.Item>
                 </Form>

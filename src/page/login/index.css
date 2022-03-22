@@ -5,14 +5,20 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-     
-    
+    background: url('../../img/bg2.jpg') bottom center no-repeat;
+    background-size: cover;
+    background-position: center 0;  
+ 
 }
+
+
 .login-page .inner-div{
     width:500px;
-    border:1px solid gray;  
+    border:0px ;  
     padding:30px 20px;
     border-radius: 10px;
-    background-color: white;
+    background-color:rgba(0, 0, 0,0.5);
+    box-shadow: aliceblue 10 10;
+    
 }
 
