@@ -1,3 +1,33 @@
 .content-list{
     text-align: left;
 }
+
+.img-slide{
+    height:350px;
+    background-color: cadetblue;
+    text-align: center;
+}
+.img-slide img{
+    height: 350px;
+   
+}
+.content-card{
+   
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;  
+
+}
+
+.content-picture{
+    width: 600px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;   
+}
+.content-picture img{
+    margin-left: 20px;
+    
+}

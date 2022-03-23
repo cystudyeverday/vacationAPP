@@ -11,7 +11,7 @@ const NavBar = (props: any) => {
             <Layout className="layout">
                 <Header>
                     <div className="logo" />
-                    <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
+                    <Menu theme="dark" mode="horizontal" defaultSelectedKeys={[]}>
                         {
                             navs.map((nav) => {
                                 return <Menu.Item key={nav}>{nav}</Menu.Item>
@@ -26,8 +26,9 @@ const NavBar = (props: any) => {
                         <Breadcrumb.Item>List</Breadcrumb.Item>
                         <Breadcrumb.Item>App</Breadcrumb.Item>
                     </Breadcrumb>
-                    <div className="site-layout-content">Content</div>
-                    {props.children}
+                    <div className="site-layout-content">
+                        {props.children}
+                    </div>
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>Created in 2022</Footer>
             </Layout>,
