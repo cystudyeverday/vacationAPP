@@ -6,16 +6,13 @@ interface Props {
 }
 const ImgSlide = (props: Props) => {
     return (
-
         <Carousel autoplay>
             {
                 props.imgLinks.map((i, index) => {
-                    return <div className="img-slide" ><img src={i}></img></div>
+                    return <div className="img-slide" key={index} ><img src={i}></img></div>
                 })
             }
         </Carousel>
-
-
     )
 }
 

@@ -1,15 +1,15 @@
 import React from 'react'
 import { Layout, Menu, Breadcrumb } from 'antd';
-
+import './index.css'
 const { Header, Content, Footer } = Layout;
 
 const navs = ['最热地点', '最热攻略', '我的收藏', '我的帖子', '我的账号']
 
 const NavBar = (props: any) => {
     return (
-        <div className='home-page'>
+        <div className='page-layout'>
             <Layout className="layout">
-                <Header>
+                <Header className="nav-bar" style={{ position: 'fixed', zIndex: 1, width: '100%' }} >
                     <div className="logo" />
                     <Menu theme="dark" mode="horizontal" defaultSelectedKeys={[]}>
                         {
@@ -20,12 +20,7 @@ const NavBar = (props: any) => {
 
                     </Menu>
                 </Header>
-                <Content style={{ padding: '0 50px', height: '1000px' }}>
-                    <Breadcrumb style={{ margin: '16px 0' }}>
-                        <Breadcrumb.Item>Home</Breadcrumb.Item>
-                        <Breadcrumb.Item>List</Breadcrumb.Item>
-                        <Breadcrumb.Item>App</Breadcrumb.Item>
-                    </Breadcrumb>
+                <Content >
                     <div className="site-layout-content">
                         {props.children}
                     </div>
