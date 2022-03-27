@@ -60,8 +60,8 @@ const ContentCard = (props: ContentCard) => {
                 {props.content}
                 <div className="content-picture">
                     {
-                        props.imgLinks.map(i => {
-                            return <div><img key={i} src={i} style={{ height: "200px" }}></img></div>
+                        props.imgLinks.map((i, index) => {
+                            return <div key={index}><img src={i} style={{ height: "200px" }}></img></div>
                         })
                     }
                 </div>

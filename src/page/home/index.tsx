@@ -2,12 +2,11 @@ import React from 'react'
 import { Layout, Menu, Breadcrumb } from 'antd';
 import NavBar from '../../components/NavBar'
 import ContentList from '../../components/ContentList'
-import ImgSlide from '../../components/ImgSlide'
 import './index.css'
 
 
 const imgs = ["https://joeschmoe.io/api/v1/random", "https://joeschmoe.io/api/v1/random", "https://joeschmoe.io/api/v1/random", "https://joeschmoe.io/api/v1/random",]
-const Home = () => {
+const HomePage = () => {
     return (
         <div className='home-page'>
             <NavBar>
@@ -17,4 +16,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default HomePage

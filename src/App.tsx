@@ -1,6 +1,4 @@
 import React, { Suspense } from 'react';
-
-
 import View from './components/View'
 import './App.css';
 
