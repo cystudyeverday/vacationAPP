@@ -1,9 +1,12 @@
 import React, { useState, useRef } from 'react'
-import { Form, Input, Button, message as AntMessage } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './index.css'
 import useHistory from '../../hooks/use-history'
 import login from '../../api/login'
+import { Form, Input, Button, message as AntMessage } from 'antd';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import TimeoutButton from '../../components/TImeoutButton'
+
+
 
 const Register = () => {
     const formRef = useRef<any>();
@@ -24,7 +27,7 @@ const Register = () => {
                     >
                         <div>
                             <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="电话或邮箱" />
-                            <Button onClick={handleVCode}>发送验证码</Button>
+                            <TimeoutButton text='发送验证码' time={60} onClick={handleVCode} />
                         </div>
                     </Form.Item>
                     <Form.Item
