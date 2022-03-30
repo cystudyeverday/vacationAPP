@@ -1,0 +1,15 @@
+.account-page{
+    display: flex;
+    flex-direction: row;
+    height:800px
+}
+.side-menu{
+    flex:1;
+    background-color: bisque;
+    
+
+}
+.account-content{
+    flex:4;
+    background-color: white;
+}

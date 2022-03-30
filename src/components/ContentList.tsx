@@ -35,19 +35,23 @@ const mockData = [
     }
 ]
 
-// for (let i = 0; i < 23; i++) {
-//     listData.push({
-//         href: 'https://ant.design',
-//         title: `ant design part ${i}`,
-//         avatar: 'https://joeschmoe.io/api/v1/random',
-//         description:
-//             'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-//         content:
-//             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi aut error, asperiores necessitatibus dicta repellat rem voluptates possimus culpa, ratione veritatis quaerat. Culpa esse officia nulla aspernatur, odio obcaecati reiciendis Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi aut error, asperiores necessitatibus dicta repellat rem voluptates possimus culpa, ratione veritatis quaerat. Culpa esse officia nulla aspernatur, odio obcaecati reiciendis Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi aut error, asperiores necessitatibus dicta repellat rem voluptates possimus culpa, ratione veritatis quaerat. Culpa esse officia nulla aspernatur, odio obcaecati reiciendis ",
-//         imgLinks: ["https://joeschmoe.io/api/v1/random", "https://joeschmoe.io/api/v1/random", "https://joeschmoe.io/api/v1/random", "https://joeschmoe.io/api/v1/random",]
-//     });
+for (let i = 0; i < 23; i++) {
+    mockData.push({
+        // href: 'https://ant.design',
+        articleId: i + 100,
+        title: `ant design part ${i}`,
+        // avatar: 'https://joeschmoe.io/api/v1/random',
+        publishTime: "2022-03-27",
+        likes: 0,
+        brief:
+            'Ant Design, a design language for background applications, is refined by Ant UED Team.',
+        "image": true,
+        article:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi aut error, asperiores necessitatibus dicta repellat rem voluptates possimus culpa, ratione veritatis quaerat. Culpa esse officia nulla aspernatur, odio obcaecati reiciendis Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi aut error, asperiores necessitatibus dicta repellat rem voluptates possimus culpa, ratione veritatis quaerat. Culpa esse officia nulla aspernatur, odio obcaecati reiciendis Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi aut error, asperiores necessitatibus dicta repellat rem voluptates possimus culpa, ratione veritatis quaerat. Culpa esse officia nulla aspernatur, odio obcaecati reiciendis ",
+        imageLink: ["https://joeschmoe.io/api/v1/random", "https://joeschmoe.io/api/v1/random", "https://joeschmoe.io/api/v1/random", "https://joeschmoe.io/api/v1/random",]
+    });
 
-// }
+}
 
 const IconText = ({ icon, text }: Icon) => (
     <Space>
@@ -59,8 +63,8 @@ const IconText = ({ icon, text }: Icon) => (
 const ContentList = () => {
 
     const { state, dispatch } = useModel('home')
-    // const listData = state.get('articles').toJS().length === 0 ? mockData : state.get('articles').toJS()
-    const listData = state.get('articles').toJS()
+    const listData = state.get('articles').toJS().length === 0 ? mockData : state.get('articles').toJS()
+    //const listData = state.get('articles').toJS()
     const avatar = "'https://joeschmoe.io/api/v1/random"
     const href = "https://ant.design"
 

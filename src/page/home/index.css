@@ -1,7 +1,13 @@
+.home-page{
+    padding: 50px 100px;   
+    min-height: 90vh;
+    
+}
 .content-list{
     text-align: left;
+    background-color: white;
+    padding: 24px;
 }
-
 .img-slide{
     height:350px;
     background-color: cadetblue;

@@ -8,11 +8,13 @@ import './index.css'
 const imgs = ["https://joeschmoe.io/api/v1/random", "https://joeschmoe.io/api/v1/random", "https://joeschmoe.io/api/v1/random", "https://joeschmoe.io/api/v1/random",]
 const HomePage = () => {
     return (
-        <div className='home-page'>
-            <NavBar>
+
+        <NavBar>
+            <div className='home-page'>
                 <ContentList />
-            </NavBar>
-        </div>
+            </div>
+        </NavBar>
+
     )
 }
 
