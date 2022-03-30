@@ -59,12 +59,13 @@ const IconText = ({ icon, text }: Icon) => (
 const ContentList = () => {
 
     const { state, dispatch } = useModel('home')
-    const listData = state.get('articles').toJS().length === 0 ? mockData : state.get('articles').toJS()
+    // const listData = state.get('articles').toJS().length === 0 ? mockData : state.get('articles').toJS()
+    const listData = state.get('articles').toJS()
     const avatar = "'https://joeschmoe.io/api/v1/random"
     const href = "https://ant.design"
 
     useEffect(() => {
-        // dispatch.getArticles()
+        dispatch.getArticles()
         console.log(listData)
     }, [])
     return (

@@ -13,12 +13,13 @@ interface RequestOption {
 
 export const requestWithToken = ({ endpoint = API_URL, ...request }: RequestOption) => {
     const headers = authHeader()
-    console.log(endpoint)
+    console.log({ headers })
+
     if (headers) {
         switch (request.method) {
             case 'GET':
                 return axios.get(`${endpoint}${request.url}`, {
-                    ...request.payload, headers
+                    headers: headers
                 }).then((response: any) => {
                     if (response.status === 200) {
                         return response.data
@@ -27,7 +28,9 @@ export const requestWithToken = ({ endpoint = API_URL, ...request }: RequestOpti
 
             case 'POST':
                 return axios.post(`${endpoint}${request.url}`, {
-                    ...request.payload, headers
+                    ...request.payload
+                }, {
+                    headers: headers
                 }).then((response: any) => {
                     if (response.status === 200) {
                         return response.data
