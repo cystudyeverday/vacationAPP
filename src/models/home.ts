@@ -22,7 +22,7 @@ export const home = createModel<RootModel>()({
             }
             const { success, errorMessage, data } = await requestWithToken(requestOption)
             if (success) {
-                this.set(['articles', data])
+                this.set(['articles', fromJS(data)])
             } else {
                 message.error(errorMessage)
             }

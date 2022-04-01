@@ -18,3 +18,7 @@
       min-height: 90vh;
 
   }
+  .content-tag{
+      margin-bottom: 16px;
+      align-self: flex-start;
+  }

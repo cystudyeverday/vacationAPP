@@ -1,5 +1,5 @@
 import React from 'react'
-import { Carousel, Avatar, List, Space } from 'antd';
+import { Carousel, Avatar, List, Space, Tag } from 'antd';
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 
 
@@ -57,14 +57,25 @@ const ContentCard = (props: ContentCard) => {
                 description={props.description}
             />
             <div className='content-card'>
-                {props.content}
+                <div className="content-tag">
+                    <Tag color="magenta">#长沙</Tag>
+                    <Tag color="red">#新疆</Tag>
+                    <Tag color="volcano">#音乐</Tag>
+                    <Tag color="orange">#游记</Tag>
+                    <Tag color="gold">#泼水节</Tag>
+                </div>
+                <div className="content">
+                    {props.content}
+                </div>
+
                 <div className="content-picture">
                     {
-                        props.imgLinks.map((i, index) => {
+                        props.imgLinks ? props.imgLinks.map((i, index) => {
                             return <div key={index}><img src={i} style={{ height: "200px" }}></img></div>
-                        })
+                        }) : null
                     }
                 </div>
+
 
 
             </div >

@@ -1,5 +1,5 @@
 .home-page{
-    padding: 50px 100px;   
+    padding: 0px 240px;   
     min-height: 90vh;
     
 }
@@ -7,6 +7,7 @@
     text-align: left;
     background-color: white;
     padding: 24px;
+    min-width: 500px;
 }
 .img-slide{
     height:350px;

@@ -1,56 +1,27 @@
-import React, { useEffect } from 'react'
-import { List, Avatar, Space } from 'antd';
+import React from 'react'
+import { List as ReactList, Avatar, Space } from 'antd';
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 import ContentCard from './ContentCard'
-import Item from 'antd/lib/list/Item';
 import { useModel } from '../hooks/use-model';
+
 
 interface Icon {
     icon: any,
     text: string
 }
-const mockData = [
-    {
-        "articleId": 2,
-        "title": "Test",
-        "brief": "this is a test",
-        "article": "hello i`m Jlunlun",
-        "publishTime": "2022-03-27",
-        "likes": 0,
-        "image": false,
-        "imageLink": []
-    },
-    {
-        "articleId": 3,
-        "title": "Test",
-        "brief": "this is a test",
-        "article": "hello i`m Jlunlun",
-        "publishTime": "2022-03-27",
-        "likes": 0,
-        "image": true,
-        "imageLink": [
-            "https://tour-article.oss-cn-beijing.aliyuncs.com/2022/03/27/61131a8b-1362-4b22-bc4f-015089576e22.jpg",
-            "https://tour-article.oss-cn-beijing.aliyuncs.com/2022/03/27/a33b8712-a352-41d2-aad1-41b9887c482d.jpg"
-        ]
-    }
-]
+interface ContentList {
+    articleId: number,
+    title: string,
+    brief: string,
+    article: string,
+    publishtime: string,
+    likes: number,
+    image?: boolean,
+    imageLink?: string[]
+}
 
-for (let i = 0; i < 23; i++) {
-    mockData.push({
-        // href: 'https://ant.design',
-        articleId: i + 100,
-        title: `ant design part ${i}`,
-        // avatar: 'https://joeschmoe.io/api/v1/random',
-        publishTime: "2022-03-27",
-        likes: 0,
-        brief:
-            'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-        "image": true,
-        article:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi aut error, asperiores necessitatibus dicta repellat rem voluptates possimus culpa, ratione veritatis quaerat. Culpa esse officia nulla aspernatur, odio obcaecati reiciendis Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi aut error, asperiores necessitatibus dicta repellat rem voluptates possimus culpa, ratione veritatis quaerat. Culpa esse officia nulla aspernatur, odio obcaecati reiciendis Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi aut error, asperiores necessitatibus dicta repellat rem voluptates possimus culpa, ratione veritatis quaerat. Culpa esse officia nulla aspernatur, odio obcaecati reiciendis ",
-        imageLink: ["https://joeschmoe.io/api/v1/random", "https://joeschmoe.io/api/v1/random", "https://joeschmoe.io/api/v1/random", "https://joeschmoe.io/api/v1/random",]
-    });
-
+interface Props {
+    content: ContentList[]
 }
 
 const IconText = ({ icon, text }: Icon) => (
@@ -60,21 +31,22 @@ const IconText = ({ icon, text }: Icon) => (
     </Space>
 );
 
-const ContentList = () => {
+const ContentList = (props: Props) => {
+    const listData = props.content
 
     const { state, dispatch } = useModel('home')
-    const listData = state.get('articles').toJS().length === 0 ? mockData : state.get('articles').toJS()
-    //const listData = state.get('articles').toJS()
+    // const listData = state.get('articles', List()).toJS().length === 0 ? mockData : state.get('articles').toJS()
+    //const listData = mockData
+    // const listData = state.get('articles', List()).toJS()
+    //console.log(listData)
     const avatar = "'https://joeschmoe.io/api/v1/random"
     const href = "https://ant.design"
 
-    useEffect(() => {
-        dispatch.getArticles()
-        console.log(listData)
-    }, [])
+
+
     return (
         <div className="content-list">
-            <List
+            <ReactList
                 itemLayout="vertical"
                 size="large"
                 dataSource={listData}
@@ -83,7 +55,7 @@ const ContentList = () => {
                         key={item.articleId}
                         imgLinks={item.imageLink}
                         title={item.title}
-                        description={item.publishTime}
+                        description={item.publishtime}
                         content={item.article}
                         // brief={item.brief}
                         avatar={avatar}

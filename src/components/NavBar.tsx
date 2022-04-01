@@ -10,7 +10,7 @@ const { Header, Content, Footer } = Layout;
 const NavBar = (props: any) => {
 
 
-    const navs = ['最热地点', '最热攻略', '我的收藏', '我的帖子', '我的账号']
+    const navs = ['最in推荐', '最热攻略', '我的收藏', '我的帖子', '我的账号']
     const links = ['home', 'plan', 'collections', 'post', 'account']
 
     const { state, dispatch } = useModel('app')
