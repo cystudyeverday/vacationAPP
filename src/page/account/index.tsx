@@ -1,68 +1,102 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import NavBar from '../../components/NavBar'
-import { Menu, Button } from 'antd';
-import {
-    AppstoreOutlined,
-    MenuUnfoldOutlined,
-    MenuFoldOutlined,
-    PieChartOutlined,
-    DesktopOutlined,
-    ContainerOutlined,
-    MailOutlined,
-} from '@ant-design/icons';
+import { Menu, Button, Avatar, Form, Input } from 'antd';
 import './index.css'
-const { SubMenu } = Menu;
+import { useModel } from '../../hooks/use-model';
+interface Props {
+    avatar?: string,
+    description?: string,
+    name?: string
+}
 
 
-const AccountPage = () => {
-    const [collapsed, setCollapsed] = useState(false)
+const AccountPage = (props: Props) => {
+    const { state, dispatch } = useModel('account')
+    const formValues = state.get('form').toJS()
+    const [form] = Form.useForm();
+    // useEffect(() => {
+    //     form.setFieldsValue(formValues)
+    //     console.log(formValues)
+    // }, [])
+
     return (
         <NavBar>
             <div className="account-page">
-                <div className='side-menu' >
+                <div className="account-top-bar">
+                    <Avatar
+                        size={100}
+                        src="https://joeschmoe.io/api/v1/random"
+                        style={{ backgroundColor: 'white' }}
+                    />
+                    <div className="account-text">
+                        <div className="account-name">
+                            {props.name || "徐霞客徒弟"}
+                        </div>
+                        <div className="account-des">
+                            {props.description || "一个普通的旅游家"}
+                        </div>
+                    </div>
 
-                    <Menu
-                        defaultSelectedKeys={['1']}
-                        defaultOpenKeys={['sub1']}
-                        mode="inline"
-                        theme="dark"
-                        inlineCollapsed={collapsed}
-                    >
-                        <Menu.Item key="1" icon={<PieChartOutlined />}>
-                            Option 1
-                        </Menu.Item>
-                        <Menu.Item key="2" icon={<DesktopOutlined />}>
-                            Option 2
-                        </Menu.Item>
-                        <Menu.Item key="3" icon={<ContainerOutlined />}>
-                            Option 3
-                        </Menu.Item>
-                        <SubMenu key="sub1" icon={<MailOutlined />} title="Navigation One">
-                            <Menu.Item key="5">Option 5</Menu.Item>
-                            <Menu.Item key="6">Option 6</Menu.Item>
-                            <Menu.Item key="7">Option 7</Menu.Item>
-                            <Menu.Item key="8">Option 8</Menu.Item>
-                        </SubMenu>
-                        <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Navigation Two">
-                            <Menu.Item key="9">Option 9</Menu.Item>
-                            <Menu.Item key="10">Option 10</Menu.Item>
-                            <SubMenu key="sub3" title="Submenu">
-                                <Menu.Item key="11">Option 11</Menu.Item>
-                                <Menu.Item key="12">Option 12</Menu.Item>
-                            </SubMenu>
-                        </SubMenu>
-                    </Menu>
                 </div>
                 <div className="account-content">
+                    {renderForm()}
 
                 </div>
             </div>
         </NavBar>
     )
 
-    function toggleCollapsed() {
-        setCollapsed(collapsed => !collapsed)
+    function renderForm() {
+        return (
+            <Form
+                name="account"
+                labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}
+                onValuesChange={onValuesChange}
+                initialValues={formValues}
+                form={form}
+
+
+            // fields={fields}
+            // onFieldsChange={(_, allFields) => {
+            //     onChange(allFields);
+            // }}
+            >
+                <Form.Item
+                    name="username"
+                    label="Username"
+                    rules={[{ required: true, message: 'Username is required!' }]}
+                >
+                    <Input />
+                </Form.Item>
+                <Form.Item
+                    name="description"
+                    label="Description"
+                    rules={[{ required: true, message: 'Username is required!' }]}
+                >
+                    <Input />
+                </Form.Item>
+                <Form.Item
+                    name="password"
+                    label="Password"
+                    rules={[{ required: true, message: 'Username is required!' }]}
+                >
+                    <Input />
+                </Form.Item>
+            </Form>
+        )
     }
+
+    function onValuesChange(changeValues: any, allValues: any) {
+        console.log(changeValues)
+        console.log(allValues)
+        const keys = Object.keys(changeValues)
+        for (const key of keys) {
+            dispatch.set({ path: ['form', key], value: changeValues[key] })
+        }
+
+    }
+
+
 }
 
 export default AccountPage

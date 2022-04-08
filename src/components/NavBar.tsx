@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Button } from 'antd';
 import './index.css'
 import { useModel } from '../hooks/use-model';
 import useHistory from '../hooks/use-history';
@@ -22,14 +22,20 @@ const NavBar = (props: any) => {
         <div className='page-layout'>
             <Layout className="layout">
                 <Header className="nav-bar" style={{ position: 'fixed', zIndex: 1, width: '100%' }} >
-                    <div className="logo" />
-                    <Menu theme="dark" mode="horizontal" defaultSelectedKeys={state.get('defaultSelectedKey').toJS()}>
-                        {
-                            navs.map((nav, index) => {
-                                return <Menu.Item key={links[index]} onClick={onClickMenu}>{nav}</Menu.Item>
-                            })
-                        }
-                    </Menu>
+                    <div className="nav-bar-container">
+                        <div className="pre-nav">
+                            <div className="logo" />
+                            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={state.get('defaultSelectedKey').toJS()}>
+                                {
+                                    navs.map((nav, index) => {
+                                        return <Menu.Item key={links[index]} onClick={onClickMenu}>{nav}</Menu.Item>
+                                    })
+                                }
+                            </Menu>
+                        </div>
+
+                        <Button>发贴</Button>
+                    </div>
                 </Header>
                 <Content >
                     <div className="site-layout-content">

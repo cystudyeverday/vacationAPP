@@ -1,15 +1,37 @@
 .account-page{
     display: flex;
-    flex-direction: row;
-    height:800px
+    flex-direction: column;
+    height:90vh;
+    padding: 0 240px;
 }
-.side-menu{
-    flex:1;
-    background-color: bisque;
-    
 
+.account-top-bar{
+    flex:1;
+    background-color: royalblue;
+    min-height: 200px;   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+    
 }
 .account-content{
     flex:4;
     background-color: white;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+
+}
+.account-text{
+    margin-top: 20px;
+    color: white;
+    font-size: 16px;
+}
+.account-des{
+   
+    margin-top: 3px;
+    font-size: 10px;
 }
