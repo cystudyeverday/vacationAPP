@@ -1,0 +1,17 @@
+.post-page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.post-form{
+    height: 90vh;
+    width: 80vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.post-form form{
+    width: 80%;
+}
