@@ -16,8 +16,6 @@ const NavBar = (props: any) => {
     const { state, dispatch } = useModel('app')
     const { gotoPage } = useHistory()
 
-    console.log(state.get('defaultSelectedKey'))
-
     return (
         <div className='page-layout'>
             <Layout className="layout">
@@ -34,7 +32,7 @@ const NavBar = (props: any) => {
                             </Menu>
                         </div>
 
-                        <Button>发贴</Button>
+                        <Button onClick={onClickBack}>发贴</Button>
                     </div>
                 </Header>
                 <Content >
@@ -52,6 +50,9 @@ const NavBar = (props: any) => {
         dispatch.set(['defaultSelectedKey', fromJS([key])])
 
 
+    }
+    function onClickBack() {
+        gotoPage('/post')
     }
 }
 

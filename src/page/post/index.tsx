@@ -3,6 +3,8 @@ import { Form, Input, Button, Upload } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import './index.css'
 import { useModel } from '../../hooks/use-model';
+import useHistory from '../../hooks/use-history'
+
 
 const PostPage = () => {
 
@@ -15,6 +17,7 @@ const PostPage = () => {
         ],
     })
     const { state, dispatch } = useModel('post')
+    const { gotoPage } = useHistory()
     const uploadButton = (
         <div>
             <PlusOutlined />
@@ -46,6 +49,8 @@ const PostPage = () => {
 
     return (
         <div className="post-page">
+            {'Post Content'}
+            <Button onClick={onClickBack}>Back</Button>
             <div className="post-form">
                 <Form name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}
                     layout="vertical">
@@ -126,6 +131,13 @@ const PostPage = () => {
         setUploaderState({ ...uploaderState, fileList })
         console.log(fileList)
     };
+
+    function onClickBack() {
+
+        gotoPage('/home')
+
+
+    }
 }
 
 export default PostPage
