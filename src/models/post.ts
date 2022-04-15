@@ -8,7 +8,6 @@ import axios from 'axios';
 import { authHeader } from "../api/helps";
 
 
-
 export const post = createModel<RootModel>()({
     state: fromJS({
         form: {
@@ -17,7 +16,10 @@ export const post = createModel<RootModel>()({
             article: "",
             file: [],
             label: ""
-        }
+        },
+        loading: false,
+        currentPage: 'post'
+
     }),
     reducers: {
 
@@ -45,6 +47,7 @@ export const post = createModel<RootModel>()({
         // },
 
         async postContent(payload) {
+            this.set(['loading', true])
 
             let formData = new FormData();
             const authToken = authHeader();
@@ -55,31 +58,27 @@ export const post = createModel<RootModel>()({
                     const files = payload.file
                     files.map((file: any) => {
                         formData.append('file', file.originFileObj)
-
                     })
-
                 } else if (key !== 'file') {
                     formData.append(key, payload[key])
                 }
             }
-            console.log(formData.getAll('file'))
+
             axios.post("http://8.130.19.187:8083/upload/uploadArticle", formData, { headers: { "Content-Type": "multipart/form-data", ...authToken } }).then((res: any) => {
-                console.log(res)
+
                 if (res.data.success) {
                     // this.set(['articles', fromJS(data)]
                     message.success("uploaded sucess")
+                    this.set(['loading', false])
+                    this.set(['currentPage', 'home'])
                 } else {
                     message.error(res.data.errorMessage)
+                    this.set(['loading', false])
                 }
 
             })
 
-
-
-
-
         }
-
 
     }),
 

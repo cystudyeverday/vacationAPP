@@ -4,17 +4,21 @@ import { set as helpSet } from '../utils/reducers'
 import type { RootModel } from '.'
 import { requestWithToken } from '../utils/request'
 import { message } from 'antd'
+
+
 const ARTICLE_URL = process.env.REACT_APP_ARTICLE
 
 export const home = createModel<RootModel>()({
     state: fromJS({
-        articles: []
+        articles: [],
+        loading: false,
     }),
     reducers: {
         set: (state: any, payload) => { return helpSet(state, payload) }
     },
     effects: (dispatch) => ({
         async getArticles() {
+            this.set(['loading', true])
             const requestOption = {
                 url: '/view/myArticle',
                 method: 'POST',
@@ -23,10 +27,10 @@ export const home = createModel<RootModel>()({
             const { success, errorMessage, data } = await requestWithToken(requestOption)
             if (success) {
                 this.set(['articles', fromJS(data)])
-                console.log(data)
             } else {
                 message.error(errorMessage)
             }
+            this.set(['loading', false])
 
         },
     }),

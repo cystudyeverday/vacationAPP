@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
-import { Form, Input, Button, Upload } from 'antd';
+import React, { useState, useEffect } from 'react'
+import { Form, Input, Button, Upload, Spin } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import './index.css'
 import { useModel } from '../../hooks/use-model';
 import useHistory from '../../hooks/use-history'
+import LabelItem from './components/LabelItem'
 
 
 const PostPage = () => {
@@ -18,6 +19,7 @@ const PostPage = () => {
     })
     const { state, dispatch } = useModel('post')
     const { gotoPage } = useHistory()
+    const currentPage = state.get('currentPage')
     const uploadButton = (
         <div>
             <PlusOutlined />
@@ -42,49 +44,58 @@ const PostPage = () => {
 
     const onFinish = (values: any) => {
         dispatch.postContent(values)
-        console.log(values)
+
+
     };
 
-
+    useEffect(() => {
+        if (currentPage === 'home') {
+            dispatch.set(['currentPage', 'post'])
+            gotoPage('/home')
+        }
+    }, [currentPage])
 
     return (
         <div className="post-page">
             {'Post Content'}
             <Button onClick={onClickBack}>Back</Button>
-            <div className="post-form">
-                <Form name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}
-                    layout="vertical">
-                    <Form.Item name="title" label="帖子叫啥" rules={[{ required: true }]}>
-                        <Input />
-                    </Form.Item>
-                    <Form.Item name="brief" label="一句话概括" rules={[{ required: true }]}>
-                        <Input />
-                    </Form.Item>
-                    <Form.Item name={"article"} label="帖子内容" rules={[{ required: true }]}>
-                        <Input.TextArea />
-                    </Form.Item>
-                    <Form.Item name="file" label="加点图片" getValueFromEvent={normFile}>
-                        <Upload
-                            // action="../assets"
-                            listType="picture-card"
-                            fileList={uploaderState.fileList || []}
-                            onPreview={handlePreview}
-                            onChange={handleChange}
-                            beforeUpload={beforeUploader}
-                        >
-                            {uploaderState.fileList.length >= 8 ? null : uploadButton}
-                        </Upload>
-                    </Form.Item>
-                    <Form.Item name="label" label="加个标签" rules={[{ required: true }]}>
-                        <Input />
-                    </Form.Item>
-                    <Form.Item >
-                        <Button type="primary" htmlType="submit">
-                            Submit
-                        </Button>
-                    </Form.Item>
-                </Form>
-            </div>
+            <Spin spinning={state.get('loading')}>
+                <div className="post-form">
+                    <Form name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}
+                        layout="vertical">
+                        <Form.Item name="title" label="帖子叫啥" rules={[{ required: true }]}>
+                            <Input />
+                        </Form.Item>
+                        <Form.Item name="brief" label="一句话概括" rules={[{ required: true }]}>
+                            <Input />
+                        </Form.Item>
+                        <Form.Item name={"article"} label="帖子内容" rules={[{ required: true }]}>
+                            <Input.TextArea />
+                        </Form.Item>
+                        <Form.Item name="file" label="加点图片" getValueFromEvent={normFile}>
+                            <Upload
+                                // action="../assets"
+                                listType="picture-card"
+                                fileList={uploaderState.fileList || []}
+                                onPreview={handlePreview}
+                                onChange={handleChange}
+                                beforeUpload={beforeUploader}
+                            >
+                                {uploaderState.fileList.length >= 8 ? null : uploadButton}
+                            </Upload>
+                        </Form.Item>
+                        <Form.Item name="label" label="加个标签" rules={[{ required: true }]}>
+                            {/* <Input /> */}
+                            <LabelItem />
+                        </Form.Item>
+                        <Form.Item >
+                            <Button type="primary" htmlType="submit">
+                                Submit
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </div>
+            </Spin>
         </div>
 
 
@@ -129,14 +140,11 @@ const PostPage = () => {
 
     function handleChange({ fileList }: any) {
         setUploaderState({ ...uploaderState, fileList })
-        console.log(fileList)
+
     };
 
     function onClickBack() {
-
         gotoPage('/home')
-
-
     }
 }
 

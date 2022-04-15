@@ -11,7 +11,7 @@ const NavBar = (props: any) => {
 
 
     const navs = ['最in推荐', '最热攻略', '我的收藏', '我的帖子', '我的账号']
-    const links = ['home', 'plan', 'collections', 'post', 'account']
+    const links = ['home', 'plan', 'collections', 'myPost', 'account']
 
     const { state, dispatch } = useModel('app')
     const { gotoPage } = useHistory()

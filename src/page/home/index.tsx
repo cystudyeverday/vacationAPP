@@ -62,7 +62,7 @@ const HomePage = () => {
 
         <NavBar>
             <div className='home-page'>
-                <ContentList content={listData} />
+                <ContentList content={listData} loading={state.get('loading')} />
             </div>
         </NavBar>
 

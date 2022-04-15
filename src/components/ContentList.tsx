@@ -1,5 +1,5 @@
 import React from 'react'
-import { List as ReactList, Avatar, Space } from 'antd';
+import { List as ReactList, Avatar, Space, Skeleton, Spin } from 'antd';
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 import ContentCard from './ContentCard'
 import { useModel } from '../hooks/use-model';
@@ -21,7 +21,9 @@ interface ContentList {
 }
 
 interface Props {
-    content: ContentList[]
+    content: ContentList[],
+    loading: boolean
+
 }
 
 const IconText = ({ icon, text }: Icon) => (
@@ -35,6 +37,7 @@ const ContentList = (props: Props) => {
     const listData = props.content
 
     const { state, dispatch } = useModel('home')
+
     // const listData = state.get('articles', List()).toJS().length === 0 ? mockData : state.get('articles').toJS()
     //const listData = mockData
     // const listData = state.get('articles', List()).toJS()
@@ -45,25 +48,33 @@ const ContentList = (props: Props) => {
 
 
     return (
-        <div className="content-list">
-            <ReactList
-                itemLayout="vertical"
-                size="large"
-                dataSource={listData}
-                renderItem={(item: any) => (
-                    <ContentCard
-                        key={item.articleId}
-                        imgLinks={item.imageLink}
-                        title={item.title}
-                        description={item.publishtime}
-                        content={item.article}
-                        // brief={item.brief}
-                        avatar={avatar}
-                        href={href} />
-                )}
-            />
+        <Spin spinning={props.loading}>
+            <div className="content-list">
+                <ReactList
+                    itemLayout="vertical"
+                    size="large"
+                    dataSource={listData}
+                    renderItem={(item: any) => (
 
-        </div>
+                        <ContentCard
+                            key={item.articleId}
+                            imgLinks={item.imageLink}
+                            title={item.title}
+                            description={item.publishtime}
+                            content={item.article}
+                            // brief={item.brief}
+                            avatar={avatar}
+                            href={href} />
+
+
+
+                    )}
+                />
+
+
+
+            </div>
+        </Spin>
     )
 }
 
