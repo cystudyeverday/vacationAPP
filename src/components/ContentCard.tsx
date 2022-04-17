@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Carousel, Avatar, List, Space, Tag, Image } from 'antd';
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 
@@ -10,16 +10,19 @@ import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 //     href: string
 // }
 interface ContentCard {
-    imgLinks: string[],
+    imgLinks?: string[],
     avatar: string,
     title: string,
     description: string,
     href: string,
-    content: string
+    content: string,
+    likes: string,
+    userIcon: string
+
 
 }
 interface Icon {
-    icon: any,
+    icon: string,
     text: string
 }
 function onChange(currentSlideNumber: number) {
@@ -33,26 +36,27 @@ const contentStyle = {
     background: '#364d79',
 };
 
-const IconText = ({ icon, text }: Icon) => (
-    <Space>
-        {React.createElement(icon)}
-        {text}
-    </Space>
-);
+
 
 
 const ContentCard = (props: ContentCard) => {
+    const [likes, setLikes] = useState(props.likes || '0')
+    const [liked, setLiked] = useState(false)
+    const IconText = ({ icon, text }: Icon) => (
+        <Space className={liked && icon === 'like' ? "liked" : ""}>
+            {icon === 'like' ? <LikeOutlined onClick={likeArticle} /> : <MessageOutlined />}
+            {text}
+        </Space>
+    );
     return (
         <List.Item
             actions={[
-                <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
-                <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
-                <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
+                <IconText icon='like' text={likes} key="list-vertical-like-o" />,
+                <IconText icon='message' text="2" key="list-vertical-message" />,
             ]}
         >
-
             <List.Item.Meta
-                avatar={<Avatar src={props.avatar} />}
+                avatar={<Avatar src={props.userIcon} />}
                 title={<a href={props.href} >{props.title}</a>}
                 description={props.description}
             />
@@ -67,7 +71,6 @@ const ContentCard = (props: ContentCard) => {
                 <div className="content">
                     {props.content}
                 </div>
-
                 <div className="content-picture">
                     {
                         props.imgLinks ? props.imgLinks.map((i, index) => {
@@ -79,11 +82,21 @@ const ContentCard = (props: ContentCard) => {
                     }
                 </div>
 
-
-
             </div >
         </List.Item >
+
     )
+
+    function likeArticle() {
+        if (liked) {
+            setLikes((parseInt(likes) - 1).toString())
+        } else {
+            setLikes((parseInt(likes) + 1).toString())
+        }
+        setLiked(!liked)
+
+
+    }
 }
 
 export default ContentCard

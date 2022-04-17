@@ -91,7 +91,7 @@ const PostPage = () => {
                                 {uploaderState.fileList.length >= 8 ? null : uploadButton}
                             </Upload>
                         </Form.Item>
-                        <Form.Item name="label" label="加个标签" rules={[{ required: true }]}>
+                        <Form.Item name="label" label="加个标签" >
                             {/* <Input /> */}
                             {/* <LabelItem /> */}
                             <MyLabelItem value={['init']} />

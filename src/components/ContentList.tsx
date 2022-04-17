@@ -15,8 +15,9 @@ interface ContentList {
     brief: string,
     article: string,
     publishtime: string,
-    likes: number,
+    likes: string,
     image?: boolean,
+    userIcon: string,
     imageLink?: string[]
 }
 
@@ -54,7 +55,7 @@ const ContentList = (props: Props) => {
                     itemLayout="vertical"
                     size="large"
                     dataSource={listData}
-                    renderItem={(item: any) => (
+                    renderItem={(item: ContentList) => (
 
                         <ContentCard
                             key={item.articleId}
@@ -63,8 +64,10 @@ const ContentList = (props: Props) => {
                             description={item.publishtime}
                             content={item.article}
                             // brief={item.brief}
+                            userIcon={item.userIcon}
                             avatar={avatar}
-                            href={href} />
+                            href={href}
+                            likes={item.likes} />
 
 
 

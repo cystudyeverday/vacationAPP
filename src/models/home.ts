@@ -17,6 +17,7 @@ export const home = createModel<RootModel>()({
         set: (state: any, payload) => { return helpSet(state, payload) }
     },
     effects: (dispatch) => ({
+
         async getArticles() {
             this.set(['loading', true])
             const requestOption = {
@@ -24,13 +25,20 @@ export const home = createModel<RootModel>()({
                 method: 'POST',
                 endpoint: "http://8.130.19.187:8083"
             }
-            const { success, errorMessage, data } = await requestWithToken(requestOption)
-            if (success) {
-                this.set(['articles', fromJS(data)])
-            } else {
-                message.error(errorMessage)
+            try {
+                const { success, errorMessage, data } = await requestWithToken(requestOption)
+                if (success) {
+                    this.set(['articles', fromJS(data)])
+                } else {
+                    message.error(errorMessage)
+                }
+                this.set(['loading', false])
+            } catch (err: any) {
+                message.error("Error in Network")
+                this.set(['loading', false])
+
+
             }
-            this.set(['loading', false])
 
         },
     }),

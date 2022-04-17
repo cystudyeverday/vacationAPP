@@ -54,8 +54,12 @@ const HomePage = () => {
     const { state, dispatch } = useModel('home')
     //const listData = state.get('articles', List()).toJS().length === 0 ? mockData : state.get('articles').toJS()
     const listData = state.get('articles', List()).toJS()
+    console.log(listData)
+
+
     useEffect(() => {
         dispatch.getArticles()
+
     }, [])
 
     return (

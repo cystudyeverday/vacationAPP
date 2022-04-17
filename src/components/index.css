@@ -43,6 +43,9 @@
     align-items: center;  
 
 }
+.liked{
+    color:cornflowerblue
+}
 .content-picture{
     width: 600px;
     display: flex;
