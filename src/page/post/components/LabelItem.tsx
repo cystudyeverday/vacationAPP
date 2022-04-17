@@ -49,6 +49,7 @@ const LabelItem = (props: Props) => {
     }
 
     function onChange(value: any, option: any) {
+
         console.log(value)
         console.log(option)
 

@@ -5,6 +5,8 @@ import './index.css'
 import { useModel } from '../../hooks/use-model';
 import useHistory from '../../hooks/use-history'
 import LabelItem from './components/LabelItem'
+import MyLabelItem from './components/MyLabelItem';
+import { useForm } from 'antd/lib/form/Form';
 
 
 const PostPage = () => {
@@ -20,6 +22,7 @@ const PostPage = () => {
     const { state, dispatch } = useModel('post')
     const { gotoPage } = useHistory()
     const currentPage = state.get('currentPage')
+    const [form] = useForm()
     const uploadButton = (
         <div>
             <PlusOutlined />
@@ -61,7 +64,11 @@ const PostPage = () => {
             <Button onClick={onClickBack}>Back</Button>
             <Spin spinning={state.get('loading')}>
                 <div className="post-form">
-                    <Form name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}
+                    <Form name="nest-messages"
+                        onFinish={onFinish}
+                        validateMessages={validateMessages}
+                        form={form}
+                        onValuesChange={onFormValuesChange}
                         layout="vertical">
                         <Form.Item name="title" label="帖子叫啥" rules={[{ required: true }]}>
                             <Input />
@@ -86,7 +93,8 @@ const PostPage = () => {
                         </Form.Item>
                         <Form.Item name="label" label="加个标签" rules={[{ required: true }]}>
                             {/* <Input /> */}
-                            <LabelItem />
+                            {/* <LabelItem /> */}
+                            <MyLabelItem value={['init']} />
                         </Form.Item>
                         <Form.Item >
                             <Button type="primary" htmlType="submit">
@@ -146,6 +154,14 @@ const PostPage = () => {
     function onClickBack() {
         gotoPage('/home')
     }
+
+    function onFormValuesChange(changedValues: any, allValues: any) {
+        //const changedKeys = Object.keys(changedValues);
+        console.log(changedValues)
+        console.log(allValues)
+
+
+    };
 }
 
 export default PostPage
