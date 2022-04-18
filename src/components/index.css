@@ -47,13 +47,20 @@
     color:cornflowerblue
 }
 .content-picture{
-    width: 600px;
+    min-width: 660px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;   
 }
+.content-picture .ant-image-img{
+  max-height: 400px;
+}
 .content-list{
     min-height: 100vh;
+    min-width: 660px;
+}
+.pre-nav{
+    min-width: 660px;
 }
 

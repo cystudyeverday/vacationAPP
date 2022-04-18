@@ -64,6 +64,7 @@ const ContentList = (props: Props) => {
                             description={item.publishtime}
                             content={item.article}
                             // brief={item.brief}
+                            articleId={item.articleId}
                             userIcon={item.userIcon}
                             avatar={avatar}
                             href={href}

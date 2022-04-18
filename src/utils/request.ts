@@ -4,7 +4,7 @@ const queryString = require('query-string');
 const API_URL = process.env.REACT_APP_BACKEND
 const ARTICLE_URL = process.env.REACT_APP_ARTICLE
 
-interface RequestOption {
+export interface RequestOption {
     method: string,
     url: string
     payload?: any,
@@ -84,5 +84,35 @@ export const requestWithFormData = ({ endpoint = API_URL, ...request }: RequestO
                 }
             })
     }
+
+}
+
+export const requestWithFormDataInToken = ({ endpoint = API_URL, ...request }: RequestOption) => {
+
+    const requestUrl = `${endpoint}${request.url}`
+    const authToken = authHeader();
+
+    switch (request.method) {
+        case 'POST':
+            let formData = new FormData();
+            const keys = Object.keys(request.payload)
+            for (const key of keys) {
+                formData.append(key, request.payload[key])
+            }
+            return axios.post(requestUrl, formData, { headers: { "Content-Type": "multipart/form-data", ...authToken } }).then((res: any) => {
+                if (res.status === 200) {
+                    return res.data
+                }
+            })
+
+        case 'GET':
+            return axios.get(requestUrl, { headers: { "Content-Type": "multipart/form-data", ...authToken } }).then((res: any) => {
+                if (res.status === 200) {
+                    return res.data
+                }
+
+            })
+    }
+
 
 }
