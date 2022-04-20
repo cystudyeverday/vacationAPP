@@ -40,8 +40,6 @@ const contentStyle = {
 };
 
 
-
-
 const ContentCard = (props: ContentCard) => {
     const [likes, setLikes] = useState(props.likes || '0')
     const [liked, setLiked] = useState(false)
@@ -92,26 +90,18 @@ const ContentCard = (props: ContentCard) => {
 
     function likeArticle() {
         if (liked) {
+            //not allowwed to cancel the like yet
             setLikes((parseInt(likes) - 1).toString())
-
-
+            sendLikeRequest(false)
         } else {
-            sendLikeRequest()
-
-            // sendLikeRequest().then(
-            //     // setLikes((parseInt(likes) + 1).toString())
-            //     {
-            //         console.log)
-            //     }
-
-
-            // )
+            setLikes((parseInt(likes) + 1).toString())
+            sendLikeRequest(true)
         }
         setLiked(!liked)
 
     }
 
-    async function sendLikeRequest() {
+    async function sendLikeRequest(like: boolean) {
         const requestOption: RequestOption = {
             method: 'POST',
             url: '/like/likeArticle',
@@ -119,11 +109,26 @@ const ContentCard = (props: ContentCard) => {
             payload: { id: props.articleId }
 
         }
-        const { success, errorMessage } = await requestWithFormDataInToken(requestOption)
+        const { success } = await requestWithFormDataInToken(requestOption)
         if (success) {
+            if (like) {
+                message.success("点赞+1！")
+            }
+            else {
+                message.error("俺不配被赞吗，呜呜")
 
-            setLikes((parseInt(likes) + 1).toString())
-            message.success("点赞+1！")
+            }
+        }
+        else {
+            message.error("操作失败，稍后再试试看！")
+            if (like) {
+                setLikes((parseInt(likes) - 1).toString())
+            } else {
+                setLikes((parseInt(likes) + 1).toString())
+
+            }
+            setLiked(!liked)
+
         }
 
     }
