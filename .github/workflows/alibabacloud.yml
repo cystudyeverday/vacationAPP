@@ -10,7 +10,7 @@ jobs:
     steps:
       # 检查
       - name: work around permission issue
-        run:  git config --global --add safe.directory /cystudyeveryday/vacationAPP
+        run:  git config --global --add safe.directory /github/workspace
       
       # 切换分支
       - name: Checkout
