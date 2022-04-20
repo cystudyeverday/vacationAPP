@@ -8,6 +8,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # 检查
+      - name: work around permission issue
+        run: git config --global --add safe.directory /__w/vacationAPP/vacationAPP
       # 切换分支
       - name: Checkout
         uses: actions/checkout@main
