@@ -16,8 +16,9 @@
     border:0px ;  
     padding:30px 20px;
     border-radius: 10px;
-    background-color:rgba(0, 0, 0,0.5);
+    /* background-color:rgba(0, 0, 0,0.5); */
     box-shadow: aliceblue 10 10;
+    background-color: white;
     
 }
 
