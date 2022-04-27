@@ -1,28 +1,18 @@
 import React from 'react'
 import { List as ReactList, Avatar, Space, Skeleton, Spin } from 'antd';
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
-import ContentCard from './ContentCard'
+import { ContentCardType } from './ContentCard'
 import { useModel } from '../hooks/use-model';
+import ContentCard from './ContentCard';
 
 
 interface Icon {
     icon: any,
     text: string
 }
-interface ContentList {
-    articleId: number,
-    title: string,
-    brief: string,
-    article: string,
-    publishtime: string,
-    likes: string,
-    image?: boolean,
-    userIcon: string,
-    imageLink?: string[]
-}
 
 interface Props {
-    content: ContentList[],
+    content: ContentCardType[],
     loading: boolean
 
 }
@@ -55,20 +45,23 @@ const ContentList = (props: Props) => {
                     itemLayout="vertical"
                     size="large"
                     dataSource={listData}
-                    renderItem={(item: ContentList) => (
+                    renderItem={(item: ContentCardType) => (
 
                         <ContentCard
-                            key={item.articleId}
-                            imgLinks={item.imageLink}
-                            title={item.title}
-                            description={item.publishtime}
-                            content={item.article}
-                            // brief={item.brief}
-                            articleId={item.articleId}
-                            userIcon={item.userIcon}
-                            avatar={avatar}
-                            href={href}
-                            likes={item.likes} />
+                            // key={item.articleId}
+                            // imgLinks={item.imageLink}
+                            // title={item.title}
+                            // description={item.publishtime}
+                            // content={item.article}
+                            // // brief={item.brief}
+                            // articleId={item.articleId}
+                            // userIcon={item.userIcon}
+                            // avatar={avatar}
+                            // href={href}
+                            // likes={item.likes} 
+                            {...item}
+
+                        />
 
 
 

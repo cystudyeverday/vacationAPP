@@ -3,33 +3,36 @@ import { Carousel, Avatar, List, Space, Tag, Image, message } from 'antd';
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 import { RequestOption, requestWithFormDataInToken } from '../utils/request'
 import { requestWithToken } from '../utils/request'
+import moment from 'moment'
 
-
-// interface UserIcon {
-//     avatar: string,
-//     title: string,
-//     description: string
-//     href: string
-// }
-interface ContentCard {
+interface userDTO {
+    background: string,
+    beLiked: string,
+    email: string,
+    phone: string | null,
+    userIcon: string,
+    username: string
+}
+export interface ContentCardType {
     imgLinks?: string[],
     avatar: string,
     title: string,
-    description: string,
+    brief: string,
     href: string,
-    content: string,
+    article: string,
     likes: string,
     userIcon: string
-    articleId: number
+    articleId: number,
+    userDTO: userDTO,
+    publishTime: string,
+    likeOrNot: boolean,
+    onClickLike?: () => void
 
 
 }
 interface Icon {
     icon: string,
     text: string
-}
-function onChange(currentSlideNumber: number) {
-    console.log(currentSlideNumber);
 }
 
 const contentStyle = {
@@ -40,9 +43,9 @@ const contentStyle = {
 };
 
 
-const ContentCard = (props: ContentCard) => {
+const ContentCard = (props: ContentCardType) => {
     const [likes, setLikes] = useState(props.likes || '0')
-    const [liked, setLiked] = useState(false)
+    const [liked, setLiked] = useState(props.likeOrNot)
     const IconText = ({ icon, text }: Icon) => (
         <Space className={liked && icon === 'like' ? "liked" : ""}>
             {icon === 'like' ? <LikeOutlined onClick={likeArticle} /> : <MessageOutlined />}
@@ -57,9 +60,9 @@ const ContentCard = (props: ContentCard) => {
             ]}
         >
             <List.Item.Meta
-                avatar={<Avatar src={props.userIcon} />}
+                avatar={<Avatar src={props.userDTO.userIcon} />}
                 title={<a href={props.href} >{props.title}</a>}
-                description={props.description}
+                description={moment(props.publishTime).format('YYYY-MM-DD')}
             />
             <div className='content-card'>
                 <div className="content-tag">
@@ -70,7 +73,7 @@ const ContentCard = (props: ContentCard) => {
                     <Tag color="gold">#泼水节</Tag>
                 </div>
                 <div className="content">
-                    {props.content}
+                    {props.article}
                 </div>
                 <div className="content-picture">
                     {
@@ -82,7 +85,6 @@ const ContentCard = (props: ContentCard) => {
                         }) : null
                     }
                 </div>
-
             </div >
         </List.Item >
 
@@ -116,7 +118,6 @@ const ContentCard = (props: ContentCard) => {
             }
             else {
                 message.error("俺不配被赞吗，呜呜")
-
             }
         }
         else {
