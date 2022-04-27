@@ -3,14 +3,18 @@ name: deploy to aliyun
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # 检查
+      - name: work around permission issue
+        run:  git config --global --add safe.directory /github/workspace
+      
       # 切换分支
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@main
       # 下载 git submodule
       - uses: srt32/git-actions@v0.0.3
         with:
