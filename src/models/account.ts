@@ -9,6 +9,7 @@ export const account = createModel<RootModel>()({
             username: 'init',
             description: 'init',
             password: "***",
+            email: 'init'
 
         }
     }),

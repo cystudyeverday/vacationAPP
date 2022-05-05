@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import NavBar from '../../components/NavBar'
-import { Menu, Button, Avatar, Form, Input } from 'antd';
+import { Menu, Button, Avatar, Form, Input, Modal } from 'antd';
 import './index.css'
 import { useModel } from '../../hooks/use-model';
+import EditInfoPopUp from './EditInfoPopUp'
+import AccountActiveChart from './AccountActiveChart'
 interface Props {
     avatar?: string,
     description?: string,
@@ -14,6 +16,7 @@ const AccountPage = (props: Props) => {
     const { state, dispatch } = useModel('account')
     const formValues = state.get('form').toJS()
     const [form] = Form.useForm();
+    const [editInfoPop, setEditInfoPop] = useState(false)
     // useEffect(() => {
     //     form.setFieldsValue(formValues)
     //     console.log(formValues)
@@ -32,15 +35,23 @@ const AccountPage = (props: Props) => {
                         <div className="account-name">
                             {props.name || "徐霞客徒弟"}
                         </div>
-                        <div className="account-des">
+                        <div className="account-des" onClick={() => {
+                            setEditInfoPop(true)
+                        }}>
                             {props.description || "一个普通的旅游家"}
                         </div>
                     </div>
-
+                    <EditInfoPopUp
+                        initValues={formValues}
+                        onValuesChange={onValuesChange}
+                        visible={editInfoPop}
+                        setVisible={setEditInfoPop}
+                    />
                 </div>
-                <div className="account-content">
-                    {renderForm()}
 
+                <div className="account-content">
+                    {/* {renderForm()} */}
+                    <AccountActiveChart />
                 </div>
             </div>
         </NavBar>
@@ -83,6 +94,14 @@ const AccountPage = (props: Props) => {
                     <Input />
                 </Form.Item>
             </Form>
+        )
+    }
+
+    function renderModal() {
+        return (
+            <Modal>
+                {renderForm()}
+            </Modal>
         )
     }
 
