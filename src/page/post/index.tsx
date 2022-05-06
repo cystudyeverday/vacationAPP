@@ -6,6 +6,7 @@ import { useModel } from '../../hooks/use-model';
 import useHistory from '../../hooks/use-history'
 import LabelItem from './components/LabelItem'
 import MyLabelItem from './components/MyLabelItem';
+import ImageUploader from './components/ImageUploader'
 import { useForm } from 'antd/lib/form/Form';
 import { Map } from 'immutable'
 
@@ -43,15 +44,9 @@ const PostPage = () => {
         },
     };
 
-    const layout = {
-        labelCol: { span: 8 },
-        wrapperCol: { span: 16 },
-    };
 
     const onFinish = (values: any) => {
         dispatch.postContent(values)
-
-
     };
 
     useEffect(() => {
@@ -90,16 +85,7 @@ const PostPage = () => {
                             <Input.TextArea />
                         </Form.Item>
                         <Form.Item name="file" label="加点图片" getValueFromEvent={normFile}>
-                            <Upload
-                                // action="../assets"
-                                listType="picture-card"
-                                fileList={uploaderState.fileList || []}
-                                onPreview={handlePreview}
-                                onChange={handleChange}
-                                beforeUpload={beforeUploader}
-                            >
-                                {uploaderState.fileList.length >= 8 ? null : uploadButton}
-                            </Upload>
+                            <ImageUploader />
                         </Form.Item>
                         <Form.Item name="label" label="加个标签" >
                             <MyLabelItem />
@@ -111,8 +97,8 @@ const PostPage = () => {
                         </Form.Item>
                     </Form>
                 </div>
-            </Spin>
-        </div>
+            </Spin >
+        </div >
 
 
     )
