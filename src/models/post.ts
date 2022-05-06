@@ -11,14 +11,15 @@ import { authHeader } from "../api/helps";
 export const post = createModel<RootModel>()({
     state: fromJS({
         form: {
-            title: "",
-            brief: "",
-            article: "",
+            title: "测试",
+            brief: "看下",
+            article: "test",
             file: [],
-            label: ""
+            label: "1,2,33"
         },
         loading: false,
-        currentPage: 'post'
+        currentPage: 'post',
+        mode: 'create'
 
     }),
     reducers: {

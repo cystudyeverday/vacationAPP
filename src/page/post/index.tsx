@@ -7,6 +7,7 @@ import useHistory from '../../hooks/use-history'
 import LabelItem from './components/LabelItem'
 import MyLabelItem from './components/MyLabelItem';
 import { useForm } from 'antd/lib/form/Form';
+import { Map } from 'immutable'
 
 
 const PostPage = () => {
@@ -22,6 +23,8 @@ const PostPage = () => {
     const { state, dispatch } = useModel('post')
     const { gotoPage } = useHistory()
     const currentPage = state.get('currentPage')
+    const mode = state.get('mode')
+    const formData = state.get('form', Map()).toJS()
     const [form] = useForm()
     const uploadButton = (
         <div>
@@ -52,11 +55,18 @@ const PostPage = () => {
     };
 
     useEffect(() => {
+        form.setFieldsValue(formData)
+        console.log(formData)
+    }, [])
+
+    useEffect(() => {
         if (currentPage === 'home') {
             dispatch.set(['currentPage', 'post'])
             gotoPage('/home')
         }
     }, [currentPage])
+
+
 
     return (
         <div className="post-page">
@@ -92,9 +102,7 @@ const PostPage = () => {
                             </Upload>
                         </Form.Item>
                         <Form.Item name="label" label="加个标签" >
-                            {/* <Input /> */}
-                            {/* <LabelItem /> */}
-                            <MyLabelItem value={['init']} />
+                            <MyLabelItem />
                         </Form.Item>
                         <Form.Item >
                             <Button type="primary" htmlType="submit">

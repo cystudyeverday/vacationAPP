@@ -1,22 +1,32 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Tag, Input, message } from 'antd'
 import './index.css'
 
 interface Props {
-    initLabels?: string[],
-    value?: string[]
+    // value?: string[]||string
+    value?: string
     onChange?: (value: any) => any
 }
 const MyLabelItem = (props: Props) => {
-    const [value, setValue] = useState(props.value || [])
+    console.log('render once')
+    console.log(props)
+    const [value, setValue] = useState(props.value?.split(',') || [])
     const [inputValue, setInputValue] = useState('')
+    //props.value一开始是undefinded，然后才传进来
+    useEffect(() => {
+        setValue(props.value?.split(',') || [])
+    }, [props.value])
+
+    useEffect(() => {
+        console.log("Effect refresh")
+        console.log(value)
+    }, [])
 
     return (
         <div className='my-label-item'>
             <div className="label-input">
                 <Input
                     placeholder='输入后点击回车生成标签'
-
                     onPressEnter={onPressEnter}
                     value={inputValue}
                     onChange={onInputChange}
@@ -25,12 +35,9 @@ const MyLabelItem = (props: Props) => {
             </div>
             <div className="label-box">
                 {value.map(v => {
-
                     return renderTag(v)
                 })}
             </div>
-
-
         </div>
     )
 
@@ -64,7 +71,6 @@ const MyLabelItem = (props: Props) => {
     function onPressEnter(e: any) {
         const inputValue = e.target.value?.trim()
         if (!value.includes(inputValue)) {
-
             props.onChange?.([...value, inputValue].join(','))
             setValue([...value, inputValue])
             setInputValue('')

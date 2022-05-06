@@ -56,30 +56,34 @@ const AccountActiveChart = () => {
     })
     return (
         <div className="account-active-chart">
-            日点击率统计
-            <Chart height={320} width={600} autoFit data={dv1} >
-                <Interval position="date*click" />
-            </Chart>
-            帖子点击分布
-            <Chart height={320} width={600} autoFit data={dv2} >
-                <Interval position="click"
-                    adjust="stack"
-                    color='post'
-                    label={['post', {
-                        layout: {
-                            type: 'limit-in-plot',
-                            cfg: { action: 'ellipsis' }
-                        },
-                        content: (data) => {
-                            return `percentage:${Math.round(data.percent * 100)}%`
-                        }
-                    }]}
+            <div className="bizchart">
+                日点击率统计
+                <Chart height={320} width={300} autoFit data={dv1} >
+                    <Interval position="date*click" />
+                </Chart>
+            </div>
+            <div className="bizchart">
+                帖子点击分布
+                <Chart height={320} width={300} autoFit data={dv2} >
+                    <Interval position="click"
+                        adjust="stack"
+                        color='post'
+                        label={['post', {
+                            layout: {
+                                type: 'limit-in-plot',
+                                cfg: { action: 'ellipsis' }
+                            },
+                            content: (data) => {
+                                return `percentage:${Math.round(data.percent * 100)}%`
+                            }
+                        }]}
 
-                />
-                <Tooltip showTitle={false} />
-                <Coordinate type='theta' />
-                <Axis visible={false} />
-            </Chart>
+                    />
+                    <Tooltip showTitle={false} />
+                    <Coordinate type='theta' />
+                    <Axis visible={false} />
+                </Chart>
+            </div>
 
 
         </div>
