@@ -8,7 +8,7 @@ import LabelItem from './components/LabelItem'
 import MyLabelItem from './components/MyLabelItem';
 import ImageUploader from './components/ImageUploader'
 import { useForm } from 'antd/lib/form/Form';
-import { Map } from 'immutable'
+import { fromJS, Map } from 'immutable'
 
 
 const PostPage = () => {
@@ -149,10 +149,19 @@ const PostPage = () => {
         gotoPage('/home')
     }
 
+    //change values reflect to the form state
     function onFormValuesChange(changedValues: any, allValues: any) {
-        //const changedKeys = Object.keys(changedValues);
         console.log(changedValues)
         console.log(allValues)
+        const keys = Object.keys(changedValues)
+        for (const k of keys) {
+            dispatch.set({
+                path: ['form', k],
+                value: fromJS(changedValues[k])
+            })
+
+        }
+
 
 
     };

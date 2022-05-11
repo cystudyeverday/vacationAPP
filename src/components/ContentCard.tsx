@@ -14,7 +14,7 @@ interface userDTO {
     username: string
 }
 export interface ContentCardType {
-    imgLinks?: string[],
+    imageLink?: string[],
     avatar: string,
     title: string,
     brief: string,
@@ -77,12 +77,12 @@ const ContentCard = (props: ContentCardType) => {
                 </div>
                 <div className="content-picture">
                     {
-                        props.imgLinks ? props.imgLinks.map((i, index) => {
+                        props.imageLink?.map((i, index) => {
                             return <div key={index} style={{ marginLeft: '10px' }}><Image
                                 src={i}
                                 width={240}
                             ></Image></div>
-                        }) : null
+                        })
                     }
                 </div>
             </div >

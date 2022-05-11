@@ -6,6 +6,7 @@ import { message } from 'antd'
 import { requestWithToken } from '../utils/request'
 import axios from 'axios';
 import { authHeader } from "../api/helps";
+import { fromUrlToBlob } from './helper'
 
 
 export const post = createModel<RootModel>()({
@@ -14,7 +15,18 @@ export const post = createModel<RootModel>()({
             title: "测试",
             brief: "看下",
             article: "test",
-            file: [],
+            file: [{
+                uid: '-1',
+                name: 'image.png',
+                status: 'done',
+                url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+            },
+            {
+                uid: '-2',
+                name: 'image2.png',
+                status: 'done',
+                url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+            },],
             label: "1,2,33"
         },
         loading: false,
@@ -57,16 +69,40 @@ export const post = createModel<RootModel>()({
                 if (key === 'file' && payload[key] !== undefined) {
                     console.log(payload)
                     const files = payload.file
-                    files.map((file: any) => {
-                        formData.append('file', file.originFileObj)
-                    })
+                    // files.map(async (file: any) => {
+                    //     if (file.originFileObj) {
+                    //         console.log('haveorigin')
+                    //         console.log(file.originFileObj)
+                    //         formData.append('file', file.originFileObj)
+                    //     }
+                    //     else {
+                    //         console.log('dont have origin')
+                    //         const originFileObj = await fromUrlToBlob(file.url, file.name)
+                    //         console.log(originFileObj)
+                    //         formData.append('file', originFileObj)
+
+                    //     }
+                    // })
+                    for (let file of files) {
+                        if (file.originFileObj) {
+                            console.log('haveorigin')
+                            console.log(file.originFileObj)
+                            formData.append('file', file.originFileObj)
+                        } else {
+                            console.log('dont have origin')
+                            const originFileObj = await fromUrlToBlob(file.url, file.name)
+                            console.log(originFileObj)
+                            formData.append('file', originFileObj)
+
+                        }
+
+                    }
                 } else if (key !== 'file') {
                     formData.append(key, payload[key])
                 }
             }
 
             axios.post("http://8.130.19.187:8083/upload/uploadArticle", formData, { headers: { "Content-Type": "multipart/form-data", ...authToken } }).then((res: any) => {
-
                 if (res.data.success) {
                     // this.set(['articles', fromJS(data)]
                     message.success("uploaded sucess")
