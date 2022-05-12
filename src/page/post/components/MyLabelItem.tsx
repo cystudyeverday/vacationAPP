@@ -13,10 +13,10 @@ const MyLabelItem = (props: Props) => {
     const [value, setValue] = useState(props.value?.split(',') || [])
     const [inputValue, setInputValue] = useState('')
     //props.value一开始是undefinded，然后才传进来
-    // useEffect(() => {
-    //     console.log("触发有变化")
-    //     setValue(props.value?.split(',') || [])
-    // }, [props.value])
+    useEffect(() => {
+        console.log("触发有变化")
+        setValue(props.value?.split(',') || [])
+    }, [props.value])
 
     useEffect(() => {
         console.log("Effect refresh")

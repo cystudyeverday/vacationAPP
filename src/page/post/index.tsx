@@ -46,7 +46,7 @@ const PostPage = () => {
 
 
     const onFinish = (values: any) => {
-        dispatch.postContent(values)
+        dispatch.postContent()
     };
 
     useEffect(() => {
@@ -111,12 +111,6 @@ const PostPage = () => {
             reader.onerror = error => reject(error);
         });
     }
-    function beforeUploader({ fileList }: any) {
-        //avoid auto uploading
-        return false
-
-    }
-
 
     function normFile(e: any) {
         console.log('Upload event:', e);

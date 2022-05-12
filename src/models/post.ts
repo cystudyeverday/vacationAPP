@@ -4,6 +4,7 @@ import { set as helpSet } from '../utils/reducers'
 import type { RootModel } from '.'
 import { message } from 'antd'
 import { requestWithToken } from '../utils/request'
+import { Map, List } from 'immutable';
 import axios from 'axios';
 import { authHeader } from "../api/helps";
 import { fromUrlToBlob } from './helper'
@@ -59,8 +60,9 @@ export const post = createModel<RootModel>()({
 
         // },
 
-        async postContent(payload) {
+        async postContent(_, rootState: any) {
             this.set(['loading', true])
+            const payload: any = rootState['post'].get('form', Map()).toJS()
 
             let formData = new FormData();
             const authToken = authHeader();
