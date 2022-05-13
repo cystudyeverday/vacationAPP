@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Avatar, List, Space, Tag, Image, message } from 'antd';
-import { MessageOutlined, LikeOutlined, EditFilled } from '@ant-design/icons';
+import { MessageOutlined, LikeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { RequestOption, requestWithFormDataInToken } from '../utils/request'
 import moment from 'moment'
 import { useModel } from '../hooks/use-model';
@@ -61,9 +61,10 @@ const ContentCard = (props: ContentCardType) => {
     );
     const actions = props.edit ? [
 
-        <a onClick={onClickEdit}><EditFilled /></a>,
         <IconText icon='like' text={likes} key="list-vertical-like-o" />,
-        <IconText icon='message' text="2" key="list-vertical-message" />
+        <IconText icon='message' text="2" key="list-vertical-message" />,
+        <EditOutlined onClick={onClickEdit} style={{ color: "#52c42a" }} />,
+        <DeleteOutlined onClick={onClickEdit} style={{ color: "red" }} />,
 
     ] : [
         <IconText icon='like' text={likes} key="list-vertical-like-o" />,

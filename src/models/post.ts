@@ -3,8 +3,7 @@ import { fromJS } from 'immutable'
 import { set as helpSet } from '../utils/reducers'
 import type { RootModel } from '.'
 import { message } from 'antd'
-import { requestWithToken } from '../utils/request'
-import { Map, List } from 'immutable';
+import { Map } from 'immutable';
 import axios from 'axios';
 import { authHeader } from "../api/helps";
 import { fromUrlToBlob } from './helper'
@@ -63,7 +62,6 @@ export const post = createModel<RootModel>()({
         async postContent(_, rootState: any) {
             this.set(['loading', true])
             const payload: any = rootState['post'].get('form', Map()).toJS()
-
             let formData = new FormData();
             const authToken = authHeader();
             const keys = Object.keys(payload)
@@ -71,29 +69,11 @@ export const post = createModel<RootModel>()({
                 if (key === 'file' && payload[key] !== undefined) {
                     console.log(payload)
                     const files = payload.file
-                    // files.map(async (file: any) => {
-                    //     if (file.originFileObj) {
-                    //         console.log('haveorigin')
-                    //         console.log(file.originFileObj)
-                    //         formData.append('file', file.originFileObj)
-                    //     }
-                    //     else {
-                    //         console.log('dont have origin')
-                    //         const originFileObj = await fromUrlToBlob(file.url, file.name)
-                    //         console.log(originFileObj)
-                    //         formData.append('file', originFileObj)
-
-                    //     }
-                    // })
                     for (let file of files) {
                         if (file.originFileObj) {
-                            console.log('haveorigin')
-                            console.log(file.originFileObj)
                             formData.append('file', file.originFileObj)
                         } else {
-                            console.log('dont have origin')
                             const originFileObj = await fromUrlToBlob(file.url, file.name)
-                            console.log(originFileObj)
                             formData.append('file', originFileObj)
 
                         }
@@ -103,9 +83,11 @@ export const post = createModel<RootModel>()({
                     formData.append(key, payload[key])
                 }
             }
-
+            // upload or update depends on the current mode.
             try {
-                axios.post("http://8.130.19.187:8083/upload/uploadArticle", formData, { headers: { "Content-Type": "multipart/form-data", ...authToken } }).then((res: any) => {
+                const mode = rootState.post.get('mode')
+                const api = mode === 'create' ? "http://8.130.19.187:8083/upload/uploadArticle" : "http://8.130.19.187:8083/modify/article"
+                axios.post(api, formData, { headers: { "Content-Type": "multipart/form-data", ...authToken } }).then((res: any) => {
                     if (res.data.success) {
                         // this.set(['articles', fromJS(data)]
                         message.success("uploaded sucess")
@@ -120,7 +102,6 @@ export const post = createModel<RootModel>()({
             } catch (err: any) {
                 this.set(['loading', false])
                 message.error(err)
-
 
             }
 
