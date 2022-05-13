@@ -65,7 +65,7 @@ const PostPage = () => {
 
     return (
         <div className="post-page">
-            {'Post Content'}
+            {mode === 'create' ? '创建新帖子' : "编辑帖子"}
             <Button onClick={onClickBack}>Back</Button>
             <Spin spinning={state.get('loading')}>
                 <div className="post-form">

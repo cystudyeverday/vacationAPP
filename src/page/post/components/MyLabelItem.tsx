@@ -35,18 +35,19 @@ const MyLabelItem = (props: Props) => {
                 </Input>
             </div>
             <div className="label-box">
-                {value.map(v => {
-                    return renderTag(v)
+                {value.map((v, i) => {
+                    return renderTag(v, i)
                 })}
             </div>
         </div>
     )
 
-    function renderTag(label: string) {
+    function renderTag(label: string, id: number) {
         return (
             <Tag
                 color={'blue'}
                 closable={true}
+                key={`label-${id}`}
                 onClose={e => {
                     e.preventDefault();
                     closeTag(label)

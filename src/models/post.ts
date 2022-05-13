@@ -104,18 +104,25 @@ export const post = createModel<RootModel>()({
                 }
             }
 
-            axios.post("http://8.130.19.187:8083/upload/uploadArticle", formData, { headers: { "Content-Type": "multipart/form-data", ...authToken } }).then((res: any) => {
-                if (res.data.success) {
-                    // this.set(['articles', fromJS(data)]
-                    message.success("uploaded sucess")
-                    this.set(['loading', false])
-                    this.set(['currentPage', 'home'])
-                } else {
-                    message.error(res.data.errorMessage)
-                    this.set(['loading', false])
-                }
+            try {
+                axios.post("http://8.130.19.187:8083/upload/uploadArticle", formData, { headers: { "Content-Type": "multipart/form-data", ...authToken } }).then((res: any) => {
+                    if (res.data.success) {
+                        // this.set(['articles', fromJS(data)]
+                        message.success("uploaded sucess")
+                        this.set(['loading', false])
+                        this.set(['currentPage', 'home'])
+                    } else {
+                        message.error(res.data.errorMessage)
+                        this.set(['loading', false])
+                    }
 
-            })
+                })
+            } catch (err: any) {
+                this.set(['loading', false])
+                message.error(err)
+
+
+            }
 
         }
 

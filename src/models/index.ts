@@ -5,6 +5,7 @@ import { login } from './login'
 import { home } from './home'
 import { account } from './account'
 import { post } from './post'
+import { myPost } from './mypost'
 
 
 
@@ -15,7 +16,8 @@ export interface RootModel extends Models<RootModel> {
     home: typeof home
     account: typeof account
     post: typeof post
+    myPost: typeof myPost
 
 }
 
-export const models: RootModel = { login, app, home, account, post }
+export const models: RootModel = { login, app, home, account, post, myPost }

@@ -1,0 +1,21 @@
+.my-post-page{
+    padding: 0px 240px;   
+    min-height: 90vh;
+    
+}
+.content-list{
+    text-align: left;
+    background-color: white;
+    padding: 24px;
+    min-width: 500px;
+}
+.img-slide{
+    height:350px;
+    background-color: cadetblue;
+    text-align: center;
+}
+.img-slide img{
+    height: 350px;
+   
+}
+

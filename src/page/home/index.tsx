@@ -66,7 +66,7 @@ const HomePage = () => {
 
         <NavBar>
             <div className='home-page'>
-                <ContentList content={listData} loading={state.get('loading')} />
+                <ContentList content={listData} loading={state.get('loading')} edit={false} />
             </div>
         </NavBar>
 

@@ -18,6 +18,7 @@ const Register = lazy(() => import('../page/register'))
 const PlanPage = lazy(() => import('../page/plan'))
 const AccountPage = lazy(() => import('../page/account'))
 const PostPage = lazy(() => import('../page/post'))
+const MyPostPage = lazy(() => import('../page/myPost'))
 
 
 const router: IRouter[] = [
@@ -59,6 +60,11 @@ const router: IRouter[] = [
         title: 'Post',
         component: <PostPage />,
         key: "post"
+    }, {
+        path: '/myPost',
+        title: 'myPost',
+        component: <MyPostPage />,
+        key: "myPost"
     },
     {
         path: '*',
